@@ -11,17 +11,19 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+GPT UI
+
+UI for an AI chatbot
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+1. Chat UI.
+2. Different themes (Light & Dark mode)
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+If you want to change the theme of the UI... Look for the class named: ThemeController, then set the Value to true or false.
+![image](https://github.com/user-attachments/assets/7a657128-4ede-4061-80c5-9b11ab5b5cf9)
 
 ## Usage
 
