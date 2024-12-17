@@ -50,92 +50,61 @@ class _GptChatUIState extends State<GptChatUI> {
     final screenWidth = MediaQuery.of(context).size.width;
     final hasMessages = sentPrompts.isNotEmpty;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: themeController.isDarkMode.value
-            ? const Color(0xff1C202B)
-            : Colors.white,
-        body: Column(
-          children: [
-            SizedBox(height: screenHeight * 0.02),
-            Visibility(
-              visible: !hasMessages,
-              child: Column(
-                children: [
-                  _buildPremiumCard(),
-                  SizedBox(height: screenHeight * 0.03),
-                  _buildFeatureCards(),
-                  SizedBox(height: screenHeight * 0.02),
-                  _buildHistoryHeader(),
-                  SizedBox(height: screenHeight * 0.03),
-                  _buildHistoryItem(
-                    icon: Icons.message_outlined,
-                    text: 'Give me 10 natural clolor platelets',
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  _buildHistoryItem(
-                    icon: Icons.mic_outlined,
-                    text: 'How to structure my ux design portfolio',
-                  ),
-                ],
-              ),
-            ),
-            Visibility(
-              visible: hasMessages,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.05,
-                  vertical: screenHeight * 0.02,
-                ),
+    return SingleChildScrollView(
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: themeController.isDarkMode.value
+              ? const Color(0xff1C202B)
+              : Colors.white,
+          body: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.02),
+              Visibility(
+                visible: !hasMessages,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Chat',
-                      style: TextStyle(
-                        fontSize: screenHeight * 0.03,
-                        fontWeight: FontWeight.bold,
-                        color: themeController.isDarkMode.value
-                            ? Colors.white
-                            : Colors.black,
-                      ),
+                    _buildPremiumCard(),
+                    SizedBox(height: screenHeight * 0.03),
+                    _buildFeatureCards(),
+                    SizedBox(height: screenHeight * 0.02),
+                    _buildHistoryHeader(),
+                    SizedBox(height: screenHeight * 0.03),
+                    _buildHistoryItem(
+                      icon: Icons.message_outlined,
+                      text: 'Give me 10 natural clolor platelets',
                     ),
-                    Text(
-                      'Ask me anything...',
-                      style: TextStyle(
-                        fontSize: screenHeight * 0.02,
-                        color: themeController.isDarkMode.value
-                            ? const Color(0xff6F737E)
-                            : const Color(0xff666666),
-                      ),
+                    SizedBox(height: screenHeight * 0.02),
+                    _buildHistoryItem(
+                      icon: Icons.mic_outlined,
+                      text: 'How to structure my ux design portfolio',
                     ),
                   ],
                 ),
               ),
-            ),
-            Expanded(
-              child: Visibility(
+              Visibility(
                 visible: hasMessages,
-                replacement: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: screenHeight * 0.02,
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'No messages yet',
+                        'Chat',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.05,
+                          fontSize: screenHeight * 0.03,
                           fontWeight: FontWeight.bold,
                           color: themeController.isDarkMode.value
                               ? Colors.white
                               : Colors.black,
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
                       Text(
-                        'Start a conversation by sending a message',
+                        'Ask me anything...',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.035,
+                          fontSize: screenHeight * 0.02,
                           color: themeController.isDarkMode.value
                               ? const Color(0xff6F737E)
                               : const Color(0xff666666),
@@ -144,75 +113,108 @@ class _GptChatUIState extends State<GptChatUI> {
                     ],
                   ),
                 ),
-                child: ListView.builder(
-                  itemCount: sentPrompts.length,
-                  itemBuilder: (context, index) {
-                    return Column(
+              ),
+              Expanded(
+                child: Visibility(
+                  visible: hasMessages,
+                  replacement: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.05),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.edit_outlined,
-                                    color: themeController.isDarkMode.value
-                                        ? Colors.white
-                                        : Colors.black,
-                                    size: 20,
-                                  ),
-                                ),
-                                Container(
-                                  height: 40,
-                                  width: screenWidth * 0.4,
-                                  decoration: BoxDecoration(
-                                    color: themeController.isDarkMode.value
-                                        ? const Color(0xff7067E4)
-                                        : Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      sentPrompts[index].message,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.account_circle_outlined,
-                                    color: themeController.isDarkMode.value
-                                        ? Colors.white
-                                        : Colors.black,
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
+                        Text(
+                          'No messages yet',
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.05,
+                            fontWeight: FontWeight.bold,
+                            color: themeController.isDarkMode.value
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
-                        _buildChatResponse(),
-                        SizedBox(height: screenHeight * 0.02),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        Text(
+                          'Start a conversation by sending a message',
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.035,
+                            color: themeController.isDarkMode.value
+                                ? const Color(0xff6F737E)
+                                : const Color(0xff666666),
+                          ),
+                        ),
                       ],
-                    );
-                  },
+                    ),
+                  ),
+                  child: ListView.builder(
+                    itemCount: sentPrompts.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.05),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.edit_outlined,
+                                      color: themeController.isDarkMode.value
+                                          ? Colors.white
+                                          : Colors.black,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    width: screenWidth * 0.4,
+                                    decoration: BoxDecoration(
+                                      color: themeController.isDarkMode.value
+                                          ? const Color(0xff7067E4)
+                                          : Colors.black,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        sentPrompts[index].message,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.white,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.account_circle_outlined,
+                                      color: themeController.isDarkMode.value
+                                          ? Colors.white
+                                          : Colors.black,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          _buildChatResponse(),
+                          SizedBox(height: screenHeight * 0.02),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            _buildInputBar(),
-          ],
+              _buildInputBar(),
+            ],
+          ),
         ),
       ),
     );
