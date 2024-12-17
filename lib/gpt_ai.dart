@@ -3,10 +3,6 @@ library gpt_ai;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
 class MessageModel {
   final String message;
   final DateTime timestamp;
@@ -17,26 +13,14 @@ class MessageModel {
   });
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GptChatUI extends StatefulWidget {
+  const GptChatUI({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  State<GptChatUI> createState() => _GptChatUIState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _GptChatUIState extends State<GptChatUI> {
   final List<MessageModel> sentPrompts = [];
   final List<String> received = [];
   final TextEditingController messageController = TextEditingController();
